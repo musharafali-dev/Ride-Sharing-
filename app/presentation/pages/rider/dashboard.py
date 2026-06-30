@@ -25,12 +25,12 @@ def rider_dashboard() -> rx.Component:
         header(),
         rx.grid(
             # Left pane: Map & details
-            rx.grid_item(
+            rx.box(
                 live_map(),
                 col_span=3
             ),
             # Right pane: Controls & request forms
-            rx.grid_item(
+            rx.box(
                 ride_request_form(),
                 col_span=1
             ),
