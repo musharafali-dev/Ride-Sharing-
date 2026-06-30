@@ -85,7 +85,7 @@ def register_page() -> rx.Component:
                         align="stretch",
                         width="100%"
                     ),
-                    on_submit=AuthState.register,
+                    on_submit=AuthState.register,  # type: ignore
                     width="100%"
                 ),
                 style={

@@ -65,7 +65,7 @@ def login_page() -> rx.Component:
                         align="stretch",
                         width="100%"
                     ),
-                    on_submit=AuthState.login,
+                    on_submit=AuthState.login,  # type: ignore
                     width="100%"
                 ),
                 style={

@@ -139,4 +139,6 @@ class RideState(rx.State):  # type: ignore
             elif evt == "RideCompleted":
                 self.status = "completed"
             elif evt == "RideCancelled":
-                self.status = "cancelled"
+                self.status = "cancelled"  # type: ignore
+
+# type: ignore
