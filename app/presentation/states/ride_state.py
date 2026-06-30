@@ -27,6 +27,21 @@ class RideState(rx.State):
     driver_lon: float = 0.0
     error_message: str = ""
     
+    def set_pickup_lat(self, val: float):
+        self.pickup_lat = val
+
+    def set_pickup_lon(self, val: float):
+        self.pickup_lon = val
+
+    def set_dest_lat(self, val: float):
+        self.dest_lat = val
+
+    def set_dest_lon(self, val: float):
+        self.dest_lon = val
+
+    def set_status(self, val: str):
+        self.status = val
+
     async def get_estimate(self):
         self.estimating = True
         self.error_message = ""
