@@ -27,17 +27,29 @@ class RideState(rx.State):
     driver_lon: float = 0.0
     error_message: str = ""
     
-    def set_pickup_lat(self, val: float):
-        self.pickup_lat = val
+    def set_pickup_lat(self, val: Any):
+        try:
+            self.pickup_lat = float(val)
+        except (ValueError, TypeError):
+            pass
 
-    def set_pickup_lon(self, val: float):
-        self.pickup_lon = val
+    def set_pickup_lon(self, val: Any):
+        try:
+            self.pickup_lon = float(val)
+        except (ValueError, TypeError):
+            pass
 
-    def set_dest_lat(self, val: float):
-        self.dest_lat = val
+    def set_dest_lat(self, val: Any):
+        try:
+            self.dest_lat = float(val)
+        except (ValueError, TypeError):
+            pass
 
-    def set_dest_lon(self, val: float):
-        self.dest_lon = val
+    def set_dest_lon(self, val: Any):
+        try:
+            self.dest_lon = float(val)
+        except (ValueError, TypeError):
+            pass
 
     def set_status(self, val: str):
         self.status = val

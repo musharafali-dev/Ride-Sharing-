@@ -16,13 +16,13 @@ def ride_request_form() -> rx.Component:
                         rx.input(
                             placeholder="Lat", 
                             value=RideState.pickup_lat.to(str), 
-                            on_change=lambda v: RideState.set_pickup_lat(float(v)),
+                            on_change=RideState.set_pickup_lat,
                             type="number"
                         ),
                         rx.input(
                             placeholder="Lon", 
                             value=RideState.pickup_lon.to(str), 
-                            on_change=lambda v: RideState.set_pickup_lon(float(v)),
+                            on_change=RideState.set_pickup_lon,
                             type="number"
                         ),
                         width="100%"
@@ -32,13 +32,13 @@ def ride_request_form() -> rx.Component:
                         rx.input(
                             placeholder="Lat", 
                             value=RideState.dest_lat.to(str), 
-                            on_change=lambda v: RideState.set_dest_lat(float(v)),
+                            on_change=RideState.set_dest_lat,
                             type="number"
                         ),
                         rx.input(
                             placeholder="Lon", 
                             value=RideState.dest_lon.to(str), 
-                            on_change=lambda v: RideState.set_dest_lon(float(v)),
+                            on_change=RideState.set_dest_lon,
                             type="number"
                         ),
                         width="100%"
