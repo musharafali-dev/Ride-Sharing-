@@ -4,6 +4,23 @@ from typing import Dict, Any, Optional
 
 API_BASE_URL = "http://localhost:8000/api/v1"
 
+def format_error(detail: Any) -> str:
+    if not detail:
+        return ""
+    if isinstance(detail, list):
+        errors = []
+        for err in detail:
+            if isinstance(err, dict):
+                loc = " -> ".join(str(l) for l in err.get("loc", []) if l != "body")
+                msg = err.get("msg", "Validation error")
+                errors.append(f"{loc}: {msg}" if loc else msg)
+            else:
+                errors.append(str(err))
+        return "; ".join(errors)
+    elif isinstance(detail, dict):
+        return detail.get("message", str(detail))
+    return str(detail)
+
 class AuthState(rx.State):
     access_token: str = rx.LocalStorage("")
     refresh_token: str = rx.LocalStorage("")
@@ -38,7 +55,7 @@ class AuthState(rx.State):
                     self.is_authenticated = True
                     return rx.redirect("/rider/dashboard")
                 else:
-                    self.error_message = response.json().get("detail", "Login failed")
+                    self.error_message = format_error(response.json().get("detail", "Login failed"))
             except Exception:
                 self.error_message = "Unable to connect to the authentication server."
             finally:
@@ -55,21 +72,26 @@ class AuthState(rx.State):
         self.is_loading = True
         self.error_message = ""
         
+        full_name = form_data.get("full_name") or form_data.get("name")
+        email = form_data.get("email")
+        password = form_data.get("password")
+        role = form_data.get("role", "rider")
+        
         async with httpx.AsyncClient() as client:
             try:
                 response = await client.post(
                     f"{API_BASE_URL}/auth/register",
                     json={
-                        "email": form_data.get("email"),
-                        "full_name": form_data.get("full_name"),
-                        "password": form_data.get("password"),
-                        "role": form_data.get("role", "rider")
+                        "email": email,
+                        "full_name": full_name,
+                        "password": password,
+                        "role": role
                     }
                 )
                 if response.status_code == 201:
                     return rx.redirect("/login")
                 else:
-                    self.error_message = response.json().get("detail", "Registration failed")
+                    self.error_message = format_error(response.json().get("detail", "Registration failed"))
             except Exception:
                 self.error_message = "Server communication failure during registration."
             finally:
