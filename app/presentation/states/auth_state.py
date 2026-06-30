@@ -55,7 +55,11 @@ class AuthState(rx.State):
                     self.is_authenticated = True
                     return rx.redirect("/rider/dashboard")
                 else:
-                    self.error_message = format_error(response.json().get("detail", "Login failed"))
+                    try:
+                        detail = response.json().get("detail", "Login failed")
+                    except Exception:
+                        detail = f"Login failed (Status {response.status_code})"
+                    self.error_message = format_error(detail)
             except Exception:
                 self.error_message = "Unable to connect to the authentication server."
             finally:
@@ -91,7 +95,11 @@ class AuthState(rx.State):
                 if response.status_code == 201:
                     return rx.redirect("/login")
                 else:
-                    self.error_message = format_error(response.json().get("detail", "Registration failed"))
+                    try:
+                        detail = response.json().get("detail", "Registration failed")
+                    except Exception:
+                        detail = f"Registration failed (Status {response.status_code})"
+                    self.error_message = format_error(detail)
             except Exception as e:
                 import traceback
                 traceback.print_exc()

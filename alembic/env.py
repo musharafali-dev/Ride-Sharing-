@@ -1,8 +1,12 @@
 import asyncio
+import os
+from dotenv import load_dotenv
 from logging.config import fileConfig
 from sqlalchemy import pool
 from sqlalchemy.ext.asyncio import async_engine_from_config
 from alembic import context
+
+load_dotenv()
 
 # Import target metadata from models for autogenerate support
 from app.infrastructure.database.base import Base
@@ -12,6 +16,9 @@ from app.infrastructure.database.models.payment_model import PaymentModel
 
 # Interpret the config file for Python logging.
 config = context.config
+if os.getenv("DATABASE_URL"):
+    config.set_main_option("sqlalchemy.url", os.getenv("DATABASE_URL"))
+
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
