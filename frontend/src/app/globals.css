@@ -3,55 +3,43 @@
 @theme {
   --font-sans: var(--font-sans), sans-serif;
   --font-display: var(--font-display), sans-serif;
-  --color-primary: #0F172A;
-  --color-secondary: #2563EB;
+  --color-primary: #2563EB;
+  --color-secondary: #0F172A;
   --color-accent: #F59E0B;
   --color-success: #10B981;
   --color-danger: #EF4444;
+  --color-bg-light: #F8FAFC;
+  --color-brand-primary: #2563EB;
+  --color-brand-secondary: #0F172A;
+  --color-brand-accent: #F59E0B;
+  --color-brand-success: #10B981;
+  --color-brand-danger: #EF4444;
+  --color-brand-bg: #F8FAFC;
 }
 
 body {
   font-family: var(--font-sans);
+  background-color: var(--color-brand-bg);
+  color: var(--color-brand-secondary);
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
+  font-weight: 700;
 }
 
-/* Custom Mesh Gradient/Aurora Background */
-.aurora-bg {
-  position: relative;
-  background-color: #020617;
-  overflow: hidden;
-}
-
-.aurora-bg::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 50%),
-              radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 60%);
-  animation: aurora-spin 25s infinite linear;
-  pointer-events: none;
-  z-index: 0;
-}
-
-@keyframes aurora-spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-/* Glassmorphism utility */
+/* Premium Glassmorphism Panel (Light mode optimization) */
 .glass-panel {
-  background: rgba(12, 15, 23, 0.7);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.04);
+}
+
+/* Dark mode overrides (used only when .dark is active) */
+.dark .glass-panel {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
 }

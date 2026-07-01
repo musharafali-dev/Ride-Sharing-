@@ -24,9 +24,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" className="scroll-smooth">
       <body
-        className={`${inter.variable} ${poppins.variable} antialiased bg-[#020617] text-[#f8fafc] min-h-screen flex flex-col font-sans`}
+        className={`${inter.variable} ${poppins.variable} antialiased bg-[#F8FAFC] text-[#0F172A] min-h-screen flex flex-col font-sans`}
       >
         {children}
       </body>
