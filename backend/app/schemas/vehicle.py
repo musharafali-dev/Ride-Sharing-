@@ -1,9 +1,11 @@
-from pydantic import BaseModel
-from typing import Optional
 from datetime import datetime
+from typing import Optional
+
+from pydantic import BaseModel
+
 
 class VehicleBase(BaseModel):
-    category: str # city_ride, car_rental, bike_rental, bus_coaster, luxury
+    category: str  # city_ride, car_rental, bike_rental, bus_coaster, luxury
     make: str
     model: str
     year: int
@@ -17,8 +19,10 @@ class VehicleBase(BaseModel):
     image_url: Optional[str] = None
     is_available: Optional[bool] = True
 
+
 class VehicleCreate(VehicleBase):
     pass
+
 
 class VehicleResponse(VehicleBase):
     id: str

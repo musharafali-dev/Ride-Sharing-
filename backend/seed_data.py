@@ -1,16 +1,17 @@
-from sqlalchemy.orm import Session
-from app.db.session import SessionLocal, Base, engine
+from app.core.security import get_password_hash
+from app.db.session import Base, SessionLocal, engine
+from app.models.tour import Tour
 from app.models.user import User
 from app.models.vehicle import Vehicle
-from app.models.tour import Tour
-from app.core.security import get_password_hash
+from sqlalchemy.orm import Session
+
 
 def seed_db():
     print("Dropping existing tables...")
     Base.metadata.drop_all(bind=engine)
     print("Creating all tables...")
     Base.metadata.create_all(bind=engine)
-    
+
     db = SessionLocal()
     print("Seeding database...")
 
@@ -26,7 +27,7 @@ def seed_db():
             full_name=f"Admin Master {i}",
             role="admin",
             is_verified=True,
-            wallet_balance=1000.0
+            wallet_balance=1000.0,
         )
         db.add(admin)
         admins.append(admin)
@@ -40,7 +41,7 @@ def seed_db():
             full_name=f"Fleet Owner {i}",
             role="owner",
             is_verified=True,
-            wallet_balance=150.0 * i
+            wallet_balance=150.0 * i,
         )
         db.add(owner)
         owners.append(owner)
@@ -54,7 +55,7 @@ def seed_db():
             full_name=f"Customer User {i}",
             role="customer",
             is_verified=True,
-            wallet_balance=350.0 * i
+            wallet_balance=350.0 * i,
         )
         db.add(customer)
         customers.append(customer)
@@ -69,7 +70,7 @@ def seed_db():
             role="driver",
             is_verified=True,
             license_number=f"DL-PK-998822{i}",
-            wallet_balance=50.0 * i
+            wallet_balance=50.0 * i,
         )
         db.add(driver)
         drivers.append(driver)
@@ -83,13 +84,13 @@ def seed_db():
             full_name=f"Tour Operator {i}",
             role="operator",
             is_verified=True,
-            wallet_balance=800.0 * i
+            wallet_balance=800.0 * i,
         )
         db.add(operator)
         operators.append(operator)
 
     db.commit()
-    
+
     # Refresh owners to get IDs
     for o in owners:
         db.refresh(o)
@@ -382,7 +383,7 @@ def seed_db():
             "transmission": "automatic",
             "fuel_type": "electric",
             "image_url": "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=600&q=80",
-        }
+        },
     ]
 
     for idx, v_data in enumerate(vehicles_data):
@@ -401,7 +402,7 @@ def seed_db():
             transmission=v_data["transmission"],
             fuel_type=v_data["fuel_type"],
             image_url=v_data["image_url"],
-            is_available=True
+            is_available=True,
         )
         db.add(vehicle)
 
@@ -413,7 +414,7 @@ def seed_db():
             price=399.0,
             duration_days=7,
             itinerary="Day 1: Travel to Chilas via Naran Babusar. Day 2: Journey to Karimabad. Day 3: Altit Baltit forts. Day 4: Excursion to Khunjerab Pass. Day 5: Attabad lake boating. Day 6: Travel back to Besham. Day 7: Return to Islamabad.",
-            is_active=True
+            is_active=True,
         ),
         Tour(
             title="Skardu Expedition",
@@ -421,7 +422,7 @@ def seed_db():
             price=450.0,
             duration_days=5,
             itinerary="Day 1: Fly to Skardu, visit Shangrila. Day 2: Trek to Basho Valley. Day 3: Day trip to Deosai Plains. Day 4: Explore Shigar Fort. Day 5: Fly back to Islamabad.",
-            is_active=True
+            is_active=True,
         ),
         Tour(
             title="Fairy Meadows Tour",
@@ -429,7 +430,7 @@ def seed_db():
             price=299.0,
             duration_days=4,
             itinerary="Day 1: Travel to Raikot Bridge. Day 2: Jeep trek and hike to Fairy Meadows. Day 3: Excursion to Nanga Parbat Base Camp. Day 4: Return hike and travel back.",
-            is_active=True
+            is_active=True,
         ),
         Tour(
             title="Lahore Cultural Tour",
@@ -437,7 +438,7 @@ def seed_db():
             price=99.0,
             duration_days=2,
             itinerary="Day 1: Badshahi Mosque, Lahore Fort, Wazir Khan Mosque, Food Street dinner. Day 2: Shalimar Gardens and Wagah Border ceremony.",
-            is_active=True
+            is_active=True,
         ),
         Tour(
             title="Islamabad Heritage Tour",
@@ -445,7 +446,7 @@ def seed_db():
             price=49.0,
             duration_days=1,
             itinerary="Morning: Faisal Mosque & Lok Virsa. Afternoon: Daman-e-Koh. Evening: Monal Margalla Hills sunset dinner.",
-            is_active=True
+            is_active=True,
         ),
         Tour(
             title="Naran Kaghan Tour",
@@ -453,16 +454,17 @@ def seed_db():
             price=199.0,
             duration_days=3,
             itinerary="Day 1: Travel to Naran, explore Rafting site. Day 2: Jeep tour to Lake Saiful Muluk. Day 3: Travel back to Islamabad.",
-            is_active=True
-        )
+            is_active=True,
+        ),
     ]
-    
+
     for t in tours:
         db.add(t)
-        
+
     db.commit()
     db.close()
     print("Database seeding completed successfully.")
+
 
 if __name__ == "__main__":
     seed_db()

@@ -1,9 +1,11 @@
 import uuid
 from datetime import datetime
-from sqlalchemy import Column, String, Boolean, DateTime, Float
+
+from app.db.session import Base
+from sqlalchemy import Boolean, Column, DateTime, Float, String
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
-from app.db.session import Base
+
 
 class User(Base):
     __tablename__ = "users"
@@ -22,8 +24,12 @@ class User(Base):
     business_registration = Column(String, nullable=True)
     tax_number = Column(String, nullable=True)
     experience_years = Column(String, nullable=True)
-    status = Column(String, default="ACTIVE") # PENDING, ACTIVE, REJECTED, SUSPENDED, BLOCKED
-    role = Column(String, default="customer") # customer, driver, owner, operator, admin
+    status = Column(
+        String, default="ACTIVE"
+    )  # PENDING, ACTIVE, REJECTED, SUSPENDED, BLOCKED
+    role = Column(
+        String, default="customer"
+    )  # customer, driver, owner, operator, admin
     is_active = Column(Boolean, default=True)
     is_verified = Column(Boolean, default=False)
     license_number = Column(String, nullable=True)
@@ -31,6 +37,10 @@ class User(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
     # Relationships
-    bookings = relationship("Booking", back_populates="customer", foreign_keys="Booking.customer_id")
-    trips = relationship("Booking", back_populates="driver", foreign_keys="Booking.driver_id")
+    bookings = relationship(
+        "Booking", back_populates="customer", foreign_keys="Booking.customer_id"
+    )
+    trips = relationship(
+        "Booking", back_populates="driver", foreign_keys="Booking.driver_id"
+    )
     vehicles = relationship("Vehicle", back_populates="owner")

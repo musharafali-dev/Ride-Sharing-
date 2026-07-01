@@ -1,8 +1,10 @@
 import uuid
 from datetime import datetime
-from sqlalchemy import Column, String, DateTime, Integer, ForeignKey
-from sqlalchemy.orm import relationship
+
 from app.db.session import Base
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
+
 
 class Review(Base):
     __tablename__ = "reviews"
@@ -10,7 +12,7 @@ class Review(Base):
     id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
     booking_id = Column(String, ForeignKey("bookings.id"), nullable=False)
     customer_id = Column(String, ForeignKey("users.id"), nullable=False)
-    rating = Column(Integer, nullable=False) # 1 to 5 stars
+    rating = Column(Integer, nullable=False)  # 1 to 5 stars
     comment = Column(String, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 

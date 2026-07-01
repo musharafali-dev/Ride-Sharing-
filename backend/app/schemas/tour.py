@@ -1,6 +1,8 @@
-from pydantic import BaseModel
-from typing import Optional
 from datetime import datetime
+from typing import Optional
+
+from pydantic import BaseModel
+
 
 class TourBase(BaseModel):
     title: str
@@ -10,8 +12,10 @@ class TourBase(BaseModel):
     itinerary: Optional[str] = None
     is_active: Optional[bool] = True
 
+
 class TourCreate(TourBase):
     pass
+
 
 class TourResponse(TourBase):
     id: str
