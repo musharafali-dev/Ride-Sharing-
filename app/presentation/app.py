@@ -13,7 +13,7 @@ app = rx.App(
 )
 
 # Register routes
-app.add_page(rider_dashboard, route="/", title="SwiftRide - Rider Dashboard")
-app.add_page(rider_dashboard, route="/rider/dashboard", title="SwiftRide - Rider Dashboard")
-app.add_page(login_page, route="/login", title="SwiftRide - Login")
-app.add_page(register_page, route="/register", title="SwiftRide - Register")
+app.add_page(rider_dashboard, route="/", title="SwiftRent - Customer Dashboard")
+app.add_page(rider_dashboard, route="/rider/dashboard", title="SwiftRent - Customer Dashboard")
+app.add_page(login_page, route="/login", title="SwiftRent - Login")
+app.add_page(register_page, route="/register", title="SwiftRent - Register")

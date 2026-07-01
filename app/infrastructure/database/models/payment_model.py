@@ -10,7 +10,7 @@ class PaymentModel(Base):
     __tablename__ = "payments"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    ride_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("rides.id"), nullable=False, unique=True)
+    booking_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("bookings.id"), nullable=False, unique=True)
     user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
     
     amount: Mapped[float] = mapped_column(Numeric(10, 2), nullable=False)
@@ -25,5 +25,5 @@ class PaymentModel(Base):
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
 
     # Relationships
-    ride = relationship("RideModel", back_populates="payment")
+    booking = relationship("BookingModel", back_populates="payment")
     user = relationship("UserModel", back_populates="payments")

@@ -9,8 +9,8 @@ def register_page() -> rx.Component:
             # Logo / Branding
             rx.vstack(
                 rx.icon("car", size=48, color="indigo"),
-                rx.heading("SwiftRide", size="8", weight="bold", color="indigo"),
-                rx.text("Create Your Account", size="2", color="slate"),
+                rx.heading("SwiftRent", size="8", weight="bold", color="indigo"),
+                rx.text("Premium Vehicle Rental Platform", size="2", color="slate"),
                 align="center",
                 spacing="2",
                 margin_bottom="24px"
@@ -54,8 +54,8 @@ def register_page() -> rx.Component:
                         
                         rx.text("I want to register as a:", size="2", weight="medium", color="slate"),
                         rx.radio_group(
-                            ["rider", "driver"],
-                            default_value="rider",
+                            ["customer", "admin"],
+                            default_value="customer",
                             name="role",
                             direction="row",
                             spacing="4",

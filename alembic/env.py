@@ -10,14 +10,13 @@ load_dotenv()
 
 # Import target metadata from models for autogenerate support
 from app.infrastructure.database.base import Base
-from app.infrastructure.database.models.user_model import UserModel, DriverModel, VehicleModel
-from app.infrastructure.database.models.ride_model import RideModel
-from app.infrastructure.database.models.payment_model import PaymentModel
+import app.infrastructure.database.models
 
 # Interpret the config file for Python logging.
 config = context.config
-if os.getenv("DATABASE_URL"):
-    config.set_main_option("sqlalchemy.url", os.getenv("DATABASE_URL"))
+db_url = os.getenv("DATABASE_URL")
+if db_url is not None:
+    config.set_main_option("sqlalchemy.url", db_url)
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)

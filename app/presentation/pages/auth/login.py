@@ -9,8 +9,8 @@ def login_page() -> rx.Component:
             # Logo / Branding
             rx.vstack(
                 rx.icon("car", size=48, color="indigo"),
-                rx.heading("SwiftRide", size="8", weight="bold", color="indigo"),
-                rx.text("Premium Ride Sharing Platform", size="2", color="slate"),
+                rx.heading("SwiftRent", size="8", weight="bold", color="indigo"),
+                rx.text("Premium Vehicle Rental Platform", size="2", color="slate"),
                 align="center",
                 spacing="2",
                 margin_bottom="24px"

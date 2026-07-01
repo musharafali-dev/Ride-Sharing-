@@ -12,7 +12,6 @@ celery_app = Celery(
     broker=CELERY_BROKER_URL,
     backend=CELERY_RESULT_BACKEND,
     include=[
-        "app.infrastructure.tasks.ride_matching_tasks",
         "app.infrastructure.tasks.notification_tasks"
     ]
 )

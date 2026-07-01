@@ -18,7 +18,7 @@ class PaymentMethod(str, Enum):
 
 @dataclass
 class Payment:
-    ride_id: uuid.UUID
+    booking_id: uuid.UUID
     user_id: uuid.UUID
     amount: Money
     method: PaymentMethod

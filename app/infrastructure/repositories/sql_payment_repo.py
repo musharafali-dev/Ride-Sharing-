@@ -18,9 +18,9 @@ class SQLPaymentRepository(PaymentRepository):
         model = result.scalar_one_or_none()
         return self._to_domain(model) if model else None
 
-    async def get_by_ride_id(self, ride_id: uuid.UUID) -> Optional[Payment]:
+    async def get_by_booking_id(self, booking_id: uuid.UUID) -> Optional[Payment]:
         result = await self.session.execute(
-            select(PaymentModel).where(PaymentModel.ride_id == ride_id)
+            select(PaymentModel).where(PaymentModel.booking_id == booking_id)
         )
         model = result.scalar_one_or_none()
         return self._to_domain(model) if model else None
@@ -34,7 +34,7 @@ class SQLPaymentRepository(PaymentRepository):
         if not model:
             model = PaymentModel(
                 id=payment.id,
-                ride_id=payment.ride_id,
+                booking_id=payment.booking_id,
                 user_id=payment.user_id,
                 amount=float(payment.amount.amount),
                 currency=payment.amount.currency,
@@ -54,7 +54,7 @@ class SQLPaymentRepository(PaymentRepository):
         amount = Money(model.amount, model.currency)
         return Payment(
             id=model.id,
-            ride_id=model.ride_id,
+            booking_id=model.booking_id,
             user_id=model.user_id,
             amount=amount,
             method=model.method,

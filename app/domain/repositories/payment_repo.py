@@ -9,7 +9,7 @@ class PaymentRepository(ABC):
         pass
 
     @abstractmethod
-    async def get_by_ride_id(self, ride_id: uuid.UUID) -> Optional[Payment]:
+    async def get_by_booking_id(self, booking_id: uuid.UUID) -> Optional[Payment]:
         pass
 
     @abstractmethod

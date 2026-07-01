@@ -4,8 +4,9 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.infrastructure.database.session import get_async_session
-from app.infrastructure.repositories.sql_user_repo import SQLUserRepository, SQLDriverRepository
-from app.infrastructure.repositories.sql_ride_repo import SQLRideRepository
+from app.infrastructure.repositories.sql_user_repo import SQLUserRepository
+from app.infrastructure.repositories.sql_vehicle_repo import SQLVehicleRepository
+from app.infrastructure.repositories.sql_booking_repo import SQLBookingRepository
 from app.infrastructure.repositories.sql_payment_repo import SQLPaymentRepository
 from app.infrastructure.authentication.jwt_handler import JWTHandler
 from app.infrastructure.authentication.hasher import PasswordHasher
@@ -23,11 +24,11 @@ async def get_db_session(session: AsyncSession = Depends(get_async_session)) -> 
 def get_user_repo(session: AsyncSession = Depends(get_db_session)) -> SQLUserRepository:
     return SQLUserRepository(session)
 
-def get_driver_repo(session: AsyncSession = Depends(get_db_session)) -> SQLDriverRepository:
-    return SQLDriverRepository(session)
+def get_vehicle_repo(session: AsyncSession = Depends(get_db_session)) -> SQLVehicleRepository:
+    return SQLVehicleRepository(session)
 
-def get_ride_repo(session: AsyncSession = Depends(get_db_session)) -> SQLRideRepository:
-    return SQLRideRepository(session)
+def get_booking_repo(session: AsyncSession = Depends(get_db_session)) -> SQLBookingRepository:
+    return SQLBookingRepository(session)
 
 def get_payment_repo(session: AsyncSession = Depends(get_db_session)) -> SQLPaymentRepository:
     return SQLPaymentRepository(session)
