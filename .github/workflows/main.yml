@@ -28,7 +28,7 @@ jobs:
       run: black --check backend/app backend/seed_data.py
 
     - name: Run Isort imports check
-      run: isort --check-only backend/app backend/seed_data.py
+      run: isort --check-only --profile black backend/app backend/seed_data.py
 
     - name: Run Flake8 linter
       run: flake8 backend/app backend/seed_data.py --max-line-length=120 --ignore=E203,W503,F401,E501,E712,F811

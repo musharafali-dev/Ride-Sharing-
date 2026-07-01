@@ -2,8 +2,7 @@ import uuid
 from datetime import datetime
 
 from app.db.session import Base
-from sqlalchemy import (Boolean, Column, DateTime, Float, ForeignKey, Integer,
-                        String)
+from sqlalchemy import Boolean, Column, DateTime, Float, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
 

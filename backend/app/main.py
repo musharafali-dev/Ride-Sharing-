@@ -1,5 +1,12 @@
-from app.api.v1.endpoints import (admin, auth, bookings, payments, tours,
-                                  vehicles, wallet)
+from app.api.v1.endpoints import (
+    admin,
+    auth,
+    bookings,
+    payments,
+    tours,
+    vehicles,
+    wallet,
+)
 from app.core.config import settings
 from app.db.session import Base, engine
 from fastapi import FastAPI
