@@ -165,9 +165,16 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <p className="text-center text-xs text-slate-500 mt-6 font-semibold">
-            Don&apos;t have an account? <Link href="/auth/register" className="text-blue-600 hover:underline">Register Now</Link>
-          </p>
+          <div className="space-y-3 mt-6 text-center text-xs font-semibold">
+            <p className="text-slate-500">
+              Don&apos;t have an account? <Link href="/auth/register" className="text-blue-600 hover:underline">Register Now</Link>
+            </p>
+            <div className="flex justify-center gap-3 text-[10px] font-bold text-slate-400">
+              <Link href="/admin/login" className="hover:text-blue-600 hover:underline">Admin Gateway</Link>
+              <span>&bull;</span>
+              <Link href="/super-admin/login" className="hover:text-blue-600 hover:underline">Super Admin Portal</Link>
+            </div>
+          </div>
         </div>
       </main>
 
