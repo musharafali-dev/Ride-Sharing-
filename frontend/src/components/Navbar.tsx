@@ -8,19 +8,23 @@ import CommandPalette from "./CommandPalette";
 
 export default function Navbar() {
   const [role, setRole] = useState("customer");
+  const [email, setEmail] = useState<string | null>(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
 
   useEffect(() => {
     const savedRole = localStorage.getItem("user_role") || "customer";
+    const savedEmail = localStorage.getItem("user_email");
     setRole(savedRole);
+    setEmail(savedEmail);
 
-    // Sync state when role updates
-    const syncRole = () => {
+    // Sync state when role or email updates
+    const syncAuth = () => {
       setRole(localStorage.getItem("user_role") || "customer");
+      setEmail(localStorage.getItem("user_email"));
     };
-    window.addEventListener("storage", syncRole);
+    window.addEventListener("storage", syncAuth);
 
     // Listen for Ctrl+K
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -32,7 +36,7 @@ export default function Navbar() {
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      window.removeEventListener("storage", syncRole);
+      window.removeEventListener("storage", syncAuth);
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
@@ -46,6 +50,16 @@ export default function Navbar() {
     } else {
       window.location.reload();
     }
+  };
+
+  const handleLogOut = () => {
+    localStorage.removeItem("user_role");
+    localStorage.removeItem("user_email");
+    localStorage.removeItem("user_status");
+    localStorage.removeItem("user_name");
+    setEmail(null);
+    window.dispatchEvent(new Event("storage"));
+    window.location.href = "/auth/login";
   };
 
   return (
@@ -118,12 +132,37 @@ export default function Navbar() {
             <Bell className="h-5 w-5" />
           </button>
 
-          <Link
-            href="/dashboard"
-            className="flex items-center space-x-1 p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/50 transition-colors"
-          >
-            <User className="h-5 w-5" />
-          </Link>
+          {email ? (
+            <>
+              <button 
+                onClick={handleLogOut}
+                className="px-3.5 py-1.5 border border-slate-700 bg-slate-800/40 hover:bg-slate-800 text-[11px] font-bold text-slate-300 rounded-lg cursor-pointer transition-all"
+              >
+                Sign Out
+              </button>
+              <Link
+                href="/dashboard"
+                className="flex items-center space-x-1 p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/50 transition-colors"
+              >
+                <User className="h-5 w-5" />
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/auth/login"
+                className="px-3.5 py-1.5 border border-slate-700 bg-slate-800/40 hover:bg-slate-800 text-[11px] font-bold text-slate-300 rounded-lg cursor-pointer transition-all"
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/auth/register"
+                className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-[11px] font-bold text-white rounded-lg cursor-pointer transition-all shadow-sm"
+              >
+                Register
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mega Menu Portal */}
